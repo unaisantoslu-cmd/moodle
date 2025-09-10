@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lluvia de Políticos e Imagen Extra</title>
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .imagen {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    animation: caer linear forwards;
+  }
+
+  @keyframes caer {
+    0% { top: -150px; }
+    100% { top: 100vh; }
+  }
+</style>
+</head>
+<body>
+
+<script>
+  // Varias fotos de Pedro Sánchez
+  const pedroSanchezImgs = [
+    "https://upload.wikimedia.org/wikipedia/commons/2/2c/Pedro_Sánchez_2018_%28cropped%29.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/4/44/Pedro_Sanchez_2019.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/b/bd/Pedro_S%C3%A1nchez_2020.jpg"
+  ];
+
+  // Varias fotos de Santiago Abascal
+  const abascalImgs = [
+    "https://upload.wikimedia.org/wikipedia/commons/3/34/Santiago_Abascal_2019.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/8/87/Santiago_Abascal_2018.jpg",
+    "https://upload.wikimedia.org/wikipedia/commons/1/15/Santiago_Abascal_2020.jpg"
+  ];
+
+  // Banderas
+  const banderaImgs = [
+    "https://upload.wikimedia.org/wikipedia/commons/9/9a/Flag_of_Spain.svg",
+    "https://upload.wikimedia.org/wikipedia/commons/4/44/Logo_vox.svg"
+  ];
+
+  // Imagen extra que también caerá
+  const extraImgs = [
+    "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSHtnXq_D1bs36VpY9Ez6g79LshDHuHt9IXSa69dl2oqDOTpwQ0k7y3Tt8rbjPtub_xqUu-TEyXU2xzt-o14Z8xOPsaCti4IV16ABhEJXfXbQ"
+  ];
+
+  // Combinar todas las imágenes
+  const todasImgs = pedroSanchezImgs.concat(abascalImgs, banderaImgs, extraImgs);
+
+  function crearImagen() {
+    const img = document.createElement("img");
+    img.src = todasImgs[Math.floor(Math.random() * todasImgs.length)];
+    img.className = "imagen";
+    img.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    img.style.animationDuration = (2 + Math.random() * 3) + "s";
+    document.body.appendChild(img);
+
+    // Eliminar la imagen después de que termine la animación
+    img.addEventListener("animationend", () => {
+      img.remove();
+    });
+  }
+
+  // Crear una nueva imagen cada 200ms
+  setInterval(crearImagen, 200);
+</script>
+
+</body>
+</html>
